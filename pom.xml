@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>br.gov.mapa.pom</groupId>
+        <artifactId>arquitetura-spring-web</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <groupId>br.gov.mapa</groupId>
+    <artifactId>abcom</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>ABCOM MAPA</name>
+    <description>ABCOM MAPA</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <arquitetura-spring.version>1.0.9</arquitetura-spring.version>
+        <org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
+        <org.lombok.version>1.18.10</org.lombok.version>
+
+		<start-class>br.gov.mapa.abcom.Aplicacao</start-class>
+    </properties>
+
+    <dependencies>
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+
+        <!-- MAPA -->
+        <dependency>
+            <groupId>br.gov.mapa.componente</groupId>
+            <artifactId>arquitetura-spring-boot</artifactId>
+            <version>${arquitetura-spring.version}</version>
+        </dependency>
+
+        <!-- OUTROS -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate5</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+        <!--		<dependency>-->
+        <!--			<groupId>org.reflections</groupId>-->
+        <!--			<artifactId>reflections</artifactId>-->
+        <!--			<version>0.9.11</version>-->
+        <!--		</dependency>-->
+        <!--		<dependency>-->
+        <!--			<groupId>org.apache.httpcomponents</groupId>-->
+        <!--			<artifactId>httpclient</artifactId>-->
+        <!--			<version>4.5.7</version>-->
+        <!--		</dependency>-->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${org.mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${org.mapstruct.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${org.lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>app</finalName>
+    </build>
+
+</project>

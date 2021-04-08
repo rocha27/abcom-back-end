@@ -1,0 +1,66 @@
+version: '2'
+
+services:
+ abcom_api:
+    image: docker.agricultura.gov.br/abcom_api-mapa:latest
+    container_name: abcom-api-master
+    restart: on-failure
+    environment:
+      - server.port=8080
+      #-- Perfil ativo, existem configurações para cada ambiente [dev, hmg, prod] --------
+      - spring.profiles.active=dev
+      #-- Conexão   de banco com o ORACLE --------------------------------------------------
+      - app.ds.abcom.jdbc-url=jdbc:oracle:thin:@10.255.1.3:1521:MAPADEV
+      - app.ds.abcom.username=abcom_mapa_apl
+      - app.ds.abcom.password=abcom_mapa_apl
+      - app.ds.logws.jdbc-url=jdbc:oracle:thin:@10.255.1.3:1521:MAPADEV
+      - app.ds.logws.username=LOG_MAPA_APL
+      - app.ds.logws.password=LOG_MAPA_APL
+      - app.ds.seguranca.jdbc-url=jdbc:oracle:thin:@10.255.1.3:1521:MAPADEV
+      - app.ds.seguranca.username=NEW_AUTENTICACAO_APL
+      - app.ds.seguranca.password=NEW_AUTENTICACAO_APL
+      - logging.file=/u01/log/abcom-api-master.log
+      - logging.pattern.file='%d{yyyy-MM-dd HH:mm:ss} - %msg%n'
+      - server.servlet.context-path=/abcom_api
+    volumes:
+      - /u01/logs/abcom_api:/u01/log
+      - /u01/static/abcom_api:/u01/static
+    ports:
+      - 8221:8080 # trocar porta
+    mem_limit: 512M
+    memswap_limit: 512M
+    cpuset: '6' # trocar cpuset valores de 0 a 7
+    cpu_shares: 256
+    depends_on:
+      - abcom_api-slave
+
+ abcom_api-slave:
+    image: docker.agricultura.gov.br/abcom_api-mapa:latest
+    container_name: abcom-api-slave
+    restart: on-failure
+    environment:
+      - server.port=8080
+      #-- Perfil ativo, existem configurações para cada ambiente [dev, hmg, prod] --------
+      - spring.profiles.active=dev
+      #-- Conexão   de banco com o ORACLE --------------------------------------------------
+      - app.ds.abcom.jdbc-url=jdbc:oracle:thin:@10.255.1.3:1521:MAPADEV
+      - app.ds.abcom.username=abcom_mapa_apl
+      - app.ds.abcom.password=abcom_mapa_apl
+      - app.ds.logws.jdbc-url=jdbc:oracle:thin:@10.255.1.3:1521:MAPADEV
+      - app.ds.logws.username=LOG_MAPA_APL
+      - app.ds.logws.password=LOG_MAPA_APL
+      - app.ds.seguranca.jdbc-url=jdbc:oracle:thin:@10.255.1.3:1521:MAPADEV
+      - app.ds.seguranca.username=NEW_AUTENTICACAO_APL
+      - app.ds.seguranca.password=NEW_AUTENTICACAO_APL
+      - logging.file=/u01/log/abcom-api-slave.log
+      - logging.pattern.file='%d{yyyy-MM-dd HH:mm:ss} - %msg%n'
+      - server.servlet.context-path=/abcom_api
+    volumes:
+      - /u01/logs/abcom_api:/u01/log
+      - /u01/static/abcom_api:/u01/static
+    ports:
+      - 8222:8080 # trocar porta
+    mem_limit: 512M
+    memswap_limit: 512M
+    cpuset: '6' # trocar cpuset valores de 0 a 7
+    cpu_shares: 256
